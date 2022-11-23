@@ -1,0 +1,18 @@
+{
+  "name": "project-name-projeto-integrador",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.1.1",
+    "vue": "^3.2.41",
+    "vue-router": "^4.1.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.2",
+    "vite": "^3.1.8"
+  }
+}
