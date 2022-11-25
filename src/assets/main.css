@@ -7,6 +7,11 @@
 :root {
   --bg-color: #121212;
 
+  --c-primary: #32A142;
+  --c-secondary: #0077B6;
+
+  --c-error: red;
+
   --c-text: #FFF;
 }
 
