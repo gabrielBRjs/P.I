@@ -6,7 +6,7 @@
 				<font-awesome-icon v-show="label === 'Email'" icon="fa-solid fa-at" />
 				<font-awesome-icon v-show="label === 'Senha'" icon="fa-solid fa-lock" />
 				<font-awesome-icon v-show="label === 'Adicionar Item'" icon="fa-solid fa-plus" />
-				<font-awesome-icon v-show="label === 'Usuário'" icon="fa-solid fa-user" />
+				<font-awesome-icon v-show="label === 'Nome Completo'" icon="fa-solid fa-user" />
 			</span>
 			<input
 				:type="tp"
@@ -65,7 +65,7 @@
 				this.className = 'Email'
 			}
 
-			if (this.label === 'Usuário') {
+			if (this.label === 'Nome Completo') {
 				this.className = 'User'
 			}
 		},
@@ -148,7 +148,7 @@
 	}
 
 	.msg {
-		font-size: 0.7em;
+		font-size: 1em;
 
 		text-align: center;
 

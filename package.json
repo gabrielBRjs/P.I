@@ -1,6 +1,6 @@
 {
-  "name": "project-name-projeto-integrador",
-  "version": "0.0.0",
+  "name": "projeto-integrador",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

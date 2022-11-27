@@ -44,6 +44,10 @@
 			if (this.sucess === true) {
 				this.className = 'sucess'
 			}
+
+			if (this.label === 'Registrar') {
+				this.className = 'register'
+			}
 		}
 	}
 </script>
@@ -133,5 +137,10 @@
 
 		color: #06BEB6;
 		border-color: #06BEB6;
+	}
+
+	.register {
+		background-image: none;
+		background-color: transparent;
 	}
 </style>

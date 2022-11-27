@@ -1,21 +1,88 @@
 <template>
   <main>
-    <form @submit="login">
+    <form @submit="login" v-if="status === 'login'">
       <h1>Login</h1>
 
+      <hr />
+
       <Input
-        type="text"
+        type="email"
+        label="Email"
+        placeholder="exemplo@email.com"
+        :msg="msgEmail"
+        v-model="email"
+      />
+
+      <Input
+        type="password"
         label="Senha"
         placeholder="********"
-        :msg="msg"
+        :msg="msgSenha"
         v-model="senha"
       />
+
+      <hr />
 
       <Button
         type="submit"
         label="Entrar"
         :disabled="false"
         :sucess="false"
+      />
+
+      <Button
+        type="button"
+        label="Registrar"
+        :disabled="false"
+        :sucess="false"
+        @click="changeLogin"
+      />
+    </form>
+
+    <form @submit="register" v-else>
+      <h1>Registrar</h1>
+
+      <hr />
+
+      <Input
+        type="text"
+        label="Nome Completo"
+        placeholder="João da Silva"
+        :msg="msgNome"
+        v-model="nome"
+      />
+
+      <Input
+        type="email"
+        label="Email"
+        placeholder="exemplo@email.com"
+        :msg="msgEmail"
+        v-model="email"
+      />
+
+      <Input
+        type="password"
+        label="Senha"
+        placeholder="********"
+        :msg="msgSenha"
+        v-model="senha"
+      />
+
+      <hr />
+
+      <Button
+        type="submit"
+        label="Registrar"
+        :disabled="false"
+        :sucess="false"
+      />
+
+      <Button
+        type="button"
+        label="Entrar"
+        :disabled="false"
+        :sucess="false"
+        @click="changeLogin"
       />
     </form>
   </main>
@@ -25,6 +92,8 @@
   import Input from '../components/Input.vue'
   import Button from '../components/Button.vue'
 
+  import { supabase } from '../supabase'
+
   export default {
     name: 'Login',
     components: {
@@ -33,8 +102,84 @@
     },
     data() {
       return {
+        nome: null,
+        email: null,
         senha: null,
-        msg: null
+        msgNome: null,
+        msgEmail: null,
+        msgSenha: null,
+        status: 'login'
+      }
+    },
+    methods: {
+      async login(e) {
+        e.preventDefault()
+
+        if (!this.email) {
+          this.msgSenha = null
+          this.msgEmail = 'O email é obrigatório!'
+          return
+        }
+
+        if (!this.senha) {
+          this.msgEmail = null
+          this.msgSenha = 'A senha é obrigatória!'
+          return
+        }
+      },
+      async register(e) {
+        e.preventDefault()
+
+        if (!this.nome) {
+          this.msgEmail = null
+          this.msgSenha = null
+          this.msgNome = 'O nome é obrigatório!'
+          return
+        }
+
+        if (!this.email) {
+          this.msgNome = null
+          this.msgSenha = null
+          this.msgEmail = 'O email é obrigatório!'
+          return
+        }
+
+        if (!this.senha) {
+          this.msgNome = null
+          this.msgEmail = null
+          this.msgSenha = 'A senha é obrigatória!'
+          return
+        }
+
+        this.msgNome = null
+        this.msgEmail = null
+        this.msgSenha = null
+
+
+      },
+      async changeLogin() {
+        if (this.status === 'login') {
+          this.status = 'register'
+        } else {
+          this.status = 'login'
+        }
+
+        this.email = null
+        this.senha = null
+        this.msgEmail = null
+        this.msgSenha = null
+
+        const { data, error } = await supabase.auth.signUp({
+          email: this.email,
+          password: this.senha,
+          options: {
+            name: this.nome
+          }
+        })
+
+        if (error) throw error
+
+        window.alert('Conta Criada com sucesso')
       }
     }
   }
@@ -49,6 +194,10 @@
   }
 
   form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
     text-align: center;
 
     padding: 15px;
