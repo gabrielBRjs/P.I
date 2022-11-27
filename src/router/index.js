@@ -19,7 +19,10 @@ const router = createRouter({
     {
       path: '/conta',
       name: 'conta',
-      component: () => import('../views/Conta.vue')
+      components: {
+        default: () => import('@/views/Conta.vue'),
+        Navbar: () => import('@/components/Navbar.vue')
+      }
     },
     {
       path: '/adm',

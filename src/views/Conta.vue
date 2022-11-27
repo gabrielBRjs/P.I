@@ -1,10 +1,6 @@
 <template>
 	<main>
-		<header>
-			<h1>Olá <span>{{ nome }}</span></h1>
-			<h2>Você está devendo <span>R${{ devendo }}</span></h2>
-			<button @click="logout">Sair</button>
-		</header>
+		<h1>Conta</h1>
 	</main>
 </template>
 
@@ -13,46 +9,10 @@
 
 	export default {
 		name: 'Conta',
-		data() {
-			return {
-				nome: null,
-				devendo: null
-			}
-		},
-		methods: {
-			async getUser() {
-				const { data: { user } } = await supabase.auth.getUser()
-
-				this.nome = user.user_metadata.name
-
-				const { data } = await supabase
-					.from('profiles')
-					.select('devendo')
-					.eq('id', user.id)
-					.single()
-
-				this.devendo = data.devendo
-			},
-			async logout() {
-				const { error } = await supabase.auth.signOut()
-
-				this.$router.push('/login')
-			}
-		},
-		mounted() {
-			this.getUser()
-		}
 	}
 </script>
 
 <style>
-	main {
-		display: grid;
-		place-items: center;
-
-		min-height: 100vh;
-	}
-
 	header {
 		display: grid;
 		place-items: center;
