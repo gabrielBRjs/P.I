@@ -126,6 +126,19 @@
           this.msgSenha = 'A senha é obrigatória!'
           return
         }
+
+        this.msgEmail = null
+        this.msgSenha = null
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: this.email,
+          password: this.senha,
+
+        })
+
+        if (error) throw error
+
+        this.$router.push('/conta')
       },
       async register(e) {
         e.preventDefault()
@@ -155,31 +168,34 @@
         this.msgEmail = null
         this.msgSenha = null
 
+        const { data, error } = await supabase.auth.signUp({
+          email: this.email,
+          password: this.senha,
+          options: {
+            data: {
+              name: this.nome
+            }
+          }
+        })
 
+        if (error) throw error
+
+        window.alert('Conta Criada com sucesso, agora verifique seu email para poder fazer login')
       },
-      async changeLogin() {
+      async changeLogin(e) {
+        e.preventDefault()
+
         if (this.status === 'login') {
           this.status = 'register'
         } else {
           this.status = 'login'
         }
 
+        this.nome = null
         this.email = null
         this.senha = null
         this.msgEmail = null
         this.msgSenha = null
-
-        const { data, error } = await supabase.auth.signUp({
-          email: this.email,
-          password: this.senha,
-          options: {
-            name: this.nome
-          }
-        })
-
-        if (error) throw error
-
-        window.alert('Conta Criada com sucesso')
       }
     }
   }
