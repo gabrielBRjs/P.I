@@ -3,6 +3,7 @@
 		<header>
 			<h1>Olá <span>{{ nome }}</span></h1>
 			<h2>Você está devendo <span>R${{ devendo }}</span></h2>
+			<button @click="logout">Sair</button>
 		</header>
 	</main>
 </template>
@@ -15,7 +16,7 @@
 		data() {
 			return {
 				nome: null,
-				devendo: 0
+				devendo: null
 			}
 		},
 		methods: {
@@ -31,6 +32,11 @@
 					.single()
 
 				this.devendo = data.devendo
+			},
+			async logout() {
+				const { error } = await supabase.auth.signOut()
+
+				this.$router.push('/login')
 			}
 		},
 		mounted() {
@@ -48,6 +54,10 @@
 	}
 
 	header {
+		display: grid;
+		place-items: center;
+		gap: 15px;
+
 		padding: 15px;
 
 		border-radius: 10px;
@@ -57,5 +67,26 @@
 
 	header span {
 		color: var(--c-primary);
+	}
+
+	button {
+		font-size: 1.5em;
+
+		padding: 5px;
+
+		border: 1px solid red;
+		border-radius: 10px;
+
+		background: transparent;
+
+		color: red;
+
+		transition: ease-in .3s;
+	}
+	button:hover {
+		cursor: pointer;
+
+		background: red;
+		color: var(--c-text);
 	}
 </style>
