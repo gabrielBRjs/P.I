@@ -6,6 +6,7 @@
 
 :root {
   --bg-color: #121212;
+  --bg-color-s: #202020;
 
   --c-primary: #32A142;
   --c-secondary: #0077B6;
@@ -27,6 +28,8 @@ hr {
   border-radius: 10px;
 
   height: 2px;
+
+  margin-block: 15px;
 
   background-image: linear-gradient(to right, var(--c-primary), var(--c-secondary));
 }

@@ -17,10 +17,10 @@ const router = createRouter({
       component: () => import('../views/Login.vue')
     },
     {
-      path: '/conta',
-      name: 'conta',
+      path: '/cardapio',
+      name: 'cardapio',
       components: {
-        default: () => import('@/views/Conta.vue'),
+        default: () => import('@/views/Cardapio.vue'),
         Navbar: () => import('@/components/Navbar.vue')
       }
     },
@@ -44,7 +44,7 @@ router.beforeEach(async (to, from) => {
   } else if (
     data.session && to.name === 'login'
   ) {
-    return { name: 'conta' }
+    return { name: 'cardapio' }
   }
 })
 

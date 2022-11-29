@@ -8,10 +8,10 @@
 
 		<ul>
 			<li>
-				<RouterLink to="/">Pedidos</RouterLink>
+				<RouterLink to="/">Cardapio</RouterLink>
 			</li>
 			<li>
-				<RouterLink to="/">Fazer pedido</RouterLink>
+				<RouterLink to="/">Pedidos</RouterLink>
 			</li>
 			<li>
 				<span class="sair" @click="logout">Sair</span>
