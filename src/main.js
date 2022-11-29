@@ -11,10 +11,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faAt, faLock, faPlus, faUser, faEye, faEyeSlash, faArrowRightToBracket, faUserPlus, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faAt, faLock, faPlus, faUser, faEye, faEyeSlash, faPen, faGear, faCartShopping, faBrazilianRealSign, faArrowRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faAt, faLock, faPlus, faUser, faEye, faEyeSlash, faArrowRightToBracket, faUserPlus, faGear)
+library.add(faAt, faLock, faPlus, faUser, faEye, faEyeSlash, faPen, faGear, faCartShopping, faBrazilianRealSign, faArrowRightToBracket, faUserPlus)
 
 const app = createApp(App)
 

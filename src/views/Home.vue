@@ -227,7 +227,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   main {
     display: flex;
     flex-direction: column;
@@ -271,24 +271,6 @@
   }
   .category-btn.active:hover {
     border-color: var(--c-secondary);
-  }
-
-  table,
-  td, th {
-    border-collapse: collapse;
-    border: 1px solid var(--c-primary);
-
-    font-size: 1.2em;
-
-    padding: 5px;
-  }
-
-  thead {
-    background: var(--c-primary);
-  }
-
-  tr:nth-child(even) {
-    background: var(--bg-color-s);
   }
 
   .btn-container {

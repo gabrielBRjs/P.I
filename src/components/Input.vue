@@ -5,8 +5,10 @@
 			<span class="icon">
 				<font-awesome-icon v-show="label === 'Email'" icon="fa-solid fa-at" />
 				<font-awesome-icon v-show="label === 'Senha'" icon="fa-solid fa-lock" />
-				<font-awesome-icon v-show="label === 'Adicionar Item'" icon="fa-solid fa-plus" />
 				<font-awesome-icon v-show="label === 'Nome Completo'" icon="fa-solid fa-user" />
+				<font-awesome-icon v-show="label === 'Nome'" icon="fa-solid fa-pen" />
+				<font-awesome-icon v-show="label === 'Quantidade'" icon="fa-solid fa-cart-shopping" />
+				<font-awesome-icon v-show="label === 'Valor'" icon="fa-solid fa-brazilian-real-sign" />
 			</span>
 			<input
 				:type="tp"
@@ -57,16 +59,8 @@
 			}
 		},
 		mounted() {
-			if (this.label === 'Adicionar Item') {
-				this.className = 'Add'
-			}
-
-			if (this.label === 'Email') {
-				this.className = 'Email'
-			}
-
-			if (this.label === 'Nome Completo') {
-				this.className = 'User'
+			if (this.label !== 'Senha') {
+				this.className = 'round'
 			}
 		},
 		emits: ['update:modelValue']
@@ -124,9 +118,7 @@
 		max-width: 100%;
 		width: 100%;
 	}
-	.Email,
-	.Add,
-	.User {
+	.round {
 		border-top-right-radius: 10px;
 		border-bottom-right-radius: 10px;
 
@@ -135,6 +127,7 @@
 	}
 
 	button {
+		border-radius: 0;
 		border-top-right-radius: 10px;
 		border-bottom-right-radius: 10px;
 

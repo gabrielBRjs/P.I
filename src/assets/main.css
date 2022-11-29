@@ -6,6 +6,8 @@
 
 :root {
   --bg-color: #121212;
+  --bg-color-t: rgba(18, 18, 18, 0.5);
+
   --bg-color-s: #202020;
 
   --c-primary: #32A142;
@@ -31,5 +33,40 @@ hr {
 
   margin: 15px;
 
+  width: 100%;
+
   background-image: linear-gradient(to right, var(--c-primary), var(--c-secondary));
+}
+
+table,
+td, th {
+  border-collapse: collapse;
+  border: 1px solid var(--c-primary);
+
+  font-size: 1.2em;
+
+  padding: 5px;
+}
+
+thead {
+  background: var(--c-primary);
+}
+
+tr:nth-child(even) {
+  background: var(--bg-color-s);
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    display: block;
+
+    padding: 0;
+
+    border: transparent;
+
+    max-width: calc(100% - 10px);
+    width: 100%;
+
+    overflow-x: scroll;
+  }
 }

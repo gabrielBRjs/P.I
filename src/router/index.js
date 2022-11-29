@@ -38,7 +38,8 @@ router.beforeEach(async (to, from) => {
   if (
     !data.session &&
     to.name !== 'login' &&
-    to.name !== 'home'
+    to.name !== 'home' &&
+    to.name !== 'adm'
   ) {
     return { name: 'login' }
   } else if (
