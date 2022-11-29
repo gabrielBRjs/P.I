@@ -51,13 +51,13 @@
 						:key="salgado.id"
 					>
 						<td>
-							{{ salgado.nome_produto }}
+							{{ salgado.nome }}
 						</td>
 						<td>
-							{{ salgado.quantidade_produto }}
+							{{ salgado.quantidade }}
 						</td>
 						<td>
-							R${{ salgado.preco }}
+							R${{ salgado.valor }}
 						</td>
 					</tr>
 				</tbody>
@@ -80,26 +80,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr
+						v-for="doce in doces"
+						:key="doce.id"
+					>
 						<td>
-							Bolo Chocolate
+							{{ doce.nome }}
 						</td>
 						<td>
-							9
+							{{ doce.quantidade }}
 						</td>
 						<td>
-							R$3,50
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Brigadeiro
-						</td>
-						<td>
-							8
-						</td>
-						<td>
-							R$2,50
+							R${{ doce.valor }}
 						</td>
 					</tr>
 				</tbody>
@@ -122,26 +114,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr
+						v-for="bebida in bebidas"
+						:key="bebida.id"
+					>
 						<td>
-							Coca-Cola 2L
+							{{ bebida.nome }}
 						</td>
 						<td>
-							100
+							{{ bebida.quantidade }}
 						</td>
 						<td>
-							R$10,00
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Achocolatado
-						</td>
-						<td>
-							9
-						</td>
-						<td>
-							R$3,50
+							R${{ bebida.valor }}
 						</td>
 					</tr>
 				</tbody>
@@ -193,12 +177,35 @@
 			async getSalgados() {
 				try {
 					const { data, error } = await supabase
-					  .from('produtos')
+					  .from('cardapio')
 					  .select()
-
-					console.log('Data: ', data)
+					  .eq('tipo', 'salgado')
 
 					this.salgados = data
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			async getDoces() {
+				try {
+					const { data, error } = await supabase
+					  .from('cardapio')
+					  .select()
+					  .eq('tipo', 'doce')
+
+					this.doces = data
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			async getBebidas() {
+				try {
+					const { data, error } = await supabase
+					  .from('cardapio')
+					  .select()
+					  .eq('tipo', 'bebida')
+
+					this.bebidas = data
 				} catch (error) {
 					console.log(error)
 				}
@@ -206,6 +213,8 @@
 		},
 		mounted() {
 			this.getSalgados()
+			this.getDoces()
+			this.getBebidas()
 		}
 	}
 </script>

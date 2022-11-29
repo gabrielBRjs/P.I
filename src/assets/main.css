@@ -29,7 +29,7 @@ hr {
 
   height: 2px;
 
-  margin-block: 15px;
+  margin: 15px;
 
   background-image: linear-gradient(to right, var(--c-primary), var(--c-secondary));
 }

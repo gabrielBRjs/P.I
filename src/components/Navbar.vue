@@ -11,9 +11,6 @@
 				<RouterLink to="/">Cardapio</RouterLink>
 			</li>
 			<li>
-				<RouterLink to="/">Pedidos</RouterLink>
-			</li>
-			<li>
 				<span class="sair" @click="logout">Sair</span>
 			</li>
 		</ul>
