@@ -30,6 +30,7 @@
 
     <section>
       <table
+        v-if="!loading"
         v-show="categories.salgados === 'active'"
       >
         <thead>
@@ -62,8 +63,10 @@
           </tr>
         </tbody>
       </table>
+      <h1 v-else v-show="categories.salgados === 'active'">Carregando...</h1>
 
       <table
+        v-if="!loading"
         v-show="categories.doces === 'active'"
       >
         <thead>
@@ -96,8 +99,10 @@
           </tr>
         </tbody>
       </table>
+      <h1 v-else v-show="categories.doces === 'active'">Carregando...</h1>
 
       <table
+        v-if="!loading"
         v-show="categories.bebidas === 'active'"
       >
         <thead>
@@ -130,6 +135,7 @@
           </tr>
         </tbody>
       </table>
+      <h1 v-else v-show="categories.bebidas === 'active'">Carregando...</h1>
     </section>
   </main>
   <div class="btn-container">
@@ -157,6 +163,7 @@
         salgados: null,
         doces: null,
         bebidas: null,
+        loading: false
       }
     },
     methods: {
@@ -184,38 +191,44 @@
       },
       async getSalgados() {
         try {
+          this.loading = true
+
           const { data, error } = await supabase
             .from('cardapio')
             .select()
             .eq('tipo', 'salgado')
 
           this.salgados = data
-        } catch (error) {
-          console.log(error)
+        } finally {
+          this.loading = false
         }
       },
       async getDoces() {
         try {
+          this.loading = true
+
           const { data, error } = await supabase
             .from('cardapio')
             .select()
             .eq('tipo', 'doce')
 
           this.doces = data
-        } catch (error) {
-          console.log(error)
+        } finally {
+          this.loading = false
         }
       },
       async getBebidas() {
         try {
+          this.loading = true
+
           const { data, error } = await supabase
             .from('cardapio')
             .select()
             .eq('tipo', 'bebida')
 
           this.bebidas = data
-        } catch (error) {
-          console.log(error)
+        } finally {
+          this.loading
         }
       }
     },

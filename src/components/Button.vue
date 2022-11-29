@@ -41,7 +41,7 @@
 			sucess: Boolean
 		},
 		mounted() {
-			if (this.sucess === true) {
+			if (this.sucess) {
 				this.className = 'sucess'
 			}
 
@@ -87,14 +87,6 @@
 	.Sair:hover {
 		border-color: #E32C58;
 		color: #E32C58;
-	}
-
-	.Atualizar {
-		background-image: linear-gradient(to right, #4B6CB7, #182848);
-	}
-	.Atualizar:hover {
-		border-color: #4B6CB7;
-		color: #4B6CB7;
 	}
 
 	.loading {

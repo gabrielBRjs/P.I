@@ -41,7 +41,10 @@
 				        Quantidade
 				      </th>
 				      <th>
-				        Valor
+				        Valor R$
+				      </th>
+				      <th>
+				      	Ações
 				      </th>
 				    </tr>
 				  </thead>
@@ -54,10 +57,26 @@
 				        {{ salgado.nome }}
 				      </td>
 				      <td>
-				        {{ salgado.quantidade }}
+				        <input
+				        	type="number"
+				        	:value="salgado.quantidade"
+				        	@input="updateProduto(salgado.id, 'quantidade', $event.target.value)"
+				        />
 				      </td>
 				      <td>
-				        R${{ salgado.valor }}
+				        <input
+				        	type="number"
+				        	:value="salgado.valor"
+				        	@input="updateProduto(salgado.id, 'valor', $event.target.value)"
+				        />
+				      </td>
+				      <td>
+				      	<button
+				      		class="delete"
+				      		@click="deleteProduto(salgado.id)"
+				      	>
+				      		<font-awesome-icon icon="fa-solid fa-trash" />
+				      	</button>
 				      </td>
 				    </tr>
 				  </tbody>
@@ -85,7 +104,10 @@
 				        Quantidade
 				      </th>
 				      <th>
-				        Valor
+				        Valor R$
+				      </th>
+				      <th>
+				      	Ações
 				      </th>
 				    </tr>
 				  </thead>
@@ -98,10 +120,26 @@
 				        {{ doce.nome }}
 				      </td>
 				      <td>
-				        {{ doce.quantidade }}
+				        <input
+				        	type="number"
+				        	:value="doce.quantidade"
+				        	@input="updateProduto(doce.id, 'quantidade', $event.target.value)"
+				        />
 				      </td>
 				      <td>
-				        R${{ doce.valor }}
+				        <input
+				        	type="number"
+				        	:value="doce.valor"
+				        	@input="updateProduto(doce.id, 'valor', $event.target.value)"
+				        />
+				      </td>
+				      <td>
+				      	<button
+				      		class="delete"
+				      		@click="deleteProduto(doce.id)"
+				      	>
+				      		<font-awesome-icon icon="fa-solid fa-trash" />
+				      	</button>
 				      </td>
 				    </tr>
 				  </tbody>
@@ -129,7 +167,10 @@
 				        Quantidade
 				      </th>
 				      <th>
-				        Valor
+				        Valor R$
+				      </th>
+				      <th>
+				      	Ações
 				      </th>
 				    </tr>
 				  </thead>
@@ -142,10 +183,26 @@
 				        {{ bebida.nome }}
 				      </td>
 				      <td>
-				        {{ bebida.quantidade }}
+				        <input
+				        	type="number"
+				        	:value="bebida.quantidade"
+				        	@input="updateProduto(bebida.id, 'quantidade', $event.target.value)"
+				        />
 				      </td>
 				      <td>
-				        R${{ bebida.valor }}
+				        <input
+				        	type="number"
+				        	:value="bebida.valor"
+				        	@input="updateProduto(bebida.id, 'valor', $event.target.value)"
+				        />
+				      </td>
+				      <td>
+				      	<button
+				      		class="delete"
+				      		@click="deleteProduto(bebida.id)"
+				      	>
+				      		<font-awesome-icon icon="fa-solid fa-trash" />
+				      	</button>
 				      </td>
 				    </tr>
 				  </tbody>
@@ -159,9 +216,8 @@
 				  @click="addShow('bebida')"
 				/>
 			</div>
-		</div>
 
-		<div class="password-conatiner">
+			<div class="password-conatiner">
 			<form @submit="changeSenha">
 				<h1>Mudar Senha</h1>
 
@@ -183,9 +239,10 @@
 				/>
 			</form>
 		</div>
+		</div>
 
 		<dialog class="add-conatiner" v-show="show === 'salgado'">
-			<form @submit="add('salgado')">
+			<div class="form">
 				<h1>Salgado</h1>
 
 				<hr />
@@ -215,10 +272,11 @@
 				/>
 
 				<Button
-				  type="submit"
+				  type="button"
 				  label="Adicionar"
 				  :disabled="false"
 				  :sucess="false"
+				  @click="add('salgado')"
 				/>
 
 				<Button
@@ -228,11 +286,11 @@
 				  :sucess="false"
 				  @click="addClose"
 				/>
-			</form>
+			</div>
 		</dialog>
 
 		<dialog class="add-conatiner" v-show="show === 'doce'">
-			<form @submit="add('doce')">
+			<div class="form">
 				<h1>Doce</h1>
 
 				<hr />
@@ -262,10 +320,11 @@
 				/>
 
 				<Button
-				  type="submit"
+				  type="button"
 				  label="Adicionar"
 				  :disabled="false"
 				  :sucess="false"
+				  @click="add('doce')"
 				/>
 
 				<Button
@@ -275,11 +334,11 @@
 				  :sucess="false"
 				  @click="addClose"
 				/>
-			</form>
+			</div>
 		</dialog>
 
 		<dialog class="add-conatiner" v-show="show === 'bebida'">
-			<form @submit="add('bebida')">
+			<div class="form">
 				<h1>Bebida</h1>
 
 				<hr />
@@ -309,10 +368,11 @@
 				/>
 
 				<Button
-				  type="submit"
+				  type="button"
 				  label="Adicionar"
 				  :disabled="false"
 				  :sucess="false"
+				  @click="add('bebida')"
 				/>
 
 				<Button
@@ -322,7 +382,7 @@
 				  :sucess="false"
 				  @click="addClose"
 				/>
-			</form>
+			</div>
 		</dialog>
 	</main>
 </template>
@@ -353,7 +413,9 @@
 				quantidade: null,
 				msgQuantidade: null,
 				valor: null,
-				msgValor: null
+				msgValor: null,
+				newSenha: null,
+				msgNewSenha: null
 			}
 		},
 		methods: {
@@ -437,6 +499,109 @@
 				this.nome = null
 				this.quantidade = null
 				this.valor = null
+			},
+			async updateProduto(id, type, valor) {
+
+				if (type === 'quantidade') {
+					const { error } = await supabase
+					  .from('cardapio')
+					  .update({ quantidade: valor })
+					  .eq('id', `${id}`)
+
+					console.log('Error: ', error)
+
+					if (error) window.alert('Não foi possível atualizar a quantidade')
+					return
+				}
+
+				if (type === 'valor') {
+					const { error } = await supabase
+					  .from('cardapio')
+					  .update({ valor: valor })
+					  .eq('id', `${id}`)
+
+					console.log('Error: ', error)
+
+					if (error) window.alert('Não foi possível atualizar o valor')
+					return
+				}
+
+				this.getSalgados()
+				this.getDoces()
+				this.getBebidas()
+			},
+			async deleteProduto(id) {
+				const { error } = await supabase
+				  .from('cardapio')
+				  .delete()
+				  .eq('id', id)
+
+				if (error) window.alert('Não foi possível deletar do cardapio')
+
+				this.getSalgados()
+				this.getDoces()
+				this.getBebidas()
+			},
+			async add(type) {
+				if (!this.nome) {
+					this.msgNome = 'O nome é obrigatório'
+					this.msgQuantidade = null
+					this.msgValor = null
+					return
+				}
+
+				if (!this.quantidade) {
+					this.msgQuantidade = 'A quantidade é obrigatória'
+					this.msgNome = null
+					this.msgValor = null
+					return
+				}
+
+				if (!this.valor) {
+					this.msgValor = 'O valor é obrigatório'
+					this.msgNome = null
+					this.msgQuantidade = null
+					return
+				}
+
+				this.msgNome = null
+				this.msgQuantidade = null
+				this.msgValor = null
+
+				const { error } = await supabase
+				  .from('cardapio')
+				  .insert({
+				  	nome: `${this.nome}`,
+				  	quantidade: this.quantidade,
+				  	valor: this.valor,
+				  	tipo: type
+				  })
+
+				if (error) window.alert('Não foi possível adicionar o produto')
+
+				this.getSalgados()
+				this.getDoces()
+				this.getBebidas()
+				this.addClose()
+			},
+			async changeSenha(e) {
+				e.preventDefault()
+
+				if (!this.newSenha) {
+					this.msgNewSenha = 'A senha é obrigatória'
+					return
+				}
+
+				this.msgNewSenha = null
+
+				const { error } = await supabase
+				  .from('adm')
+				  .update({ senha: this.newSenha })
+				  .eq('id', 1)
+
+				if (error) window.alert('Não foi possível atualizar a senha')
+				
+				if (!error) window.alert('Senha alterada com sucesso')
 			}
 		},
 		mounted() {
@@ -479,7 +644,8 @@
 		backdrop-filter: blur(10px);
 	}
 
-	form {
+	form,
+	.form {
 		display: flex;
 		flex-direction: column;
 		gap: 15px;
@@ -495,13 +661,50 @@
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	}
 
-	form hr {
+	form hr,
+	.form hr {
 		width: 90%;
+	}
+
+	table {
+		display: block;
+
+		border: none;
+
+		max-height: 11rem;
+		height: 100%;
+
+		overflow-y: scroll;
+
+		padding: 0;
+	}
+
+	tr, th {
+		width: 100%;
+	}
+
+	table input {
+		background: var(--bg-color-s);
+
+		font-size: 1.2em;
+
+		padding: 5px;
+
+		border-radius: 5px;
+
+		max-width: 10rem;
+
+		outline: none;
+
+		text-align: center;
+
+		border: 1px solid var(--c-primary);
 	}
 
 	.cardapio {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr;
 		gap: 15px;
 
 		margin-inline: auto;
@@ -522,6 +725,31 @@
 
 	.container table {
 		width: 100%;
+	}
+
+	button.delete {
+		font-size: 1.1em;
+
+		padding: 5px;
+
+		border: 1px solid var(--c-error);
+		border-radius: 10px;
+
+		color: var(--c-error);
+
+		background: transparent;
+
+		width: 3rem;
+		height: 3rem;
+
+		transition: ease-in .3s;
+	}
+	button.delete:hover {
+		cursor: pointer;
+
+		background: var(--c-error);
+
+		color: var(--c-text);
 	}
 
 	@media screen and (max-width: 600px) {
