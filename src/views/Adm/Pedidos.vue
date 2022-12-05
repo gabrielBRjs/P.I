@@ -70,10 +70,20 @@
 	import Input from '../../components/Input.vue'
 	import Button from '../../components/Button.vue'
 
+	import { useRouter, useRoute } from 'vue-router'
+	import { useLoginStore } from '@/stores/Login'
 	import { supabase } from '../../supabase'
 
 	export default {
 		name: 'Pedidos',
+		setup() {
+			const router = useRouter()
+			const store = useLoginStore()
+
+			if (!store.logged) {
+				router.push('/adm')
+			}
+		},
 		components: {
 			Input,
 			Button
@@ -90,8 +100,6 @@
 					.select()
 
 				this.pedidos = data
-
-				console.log('Pedidos: ', data)
 			},
 			async updatePedido(id) {
 				const { error } = await supabase

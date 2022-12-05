@@ -20,7 +20,7 @@
 		height: 45px;
 
 		border-radius: 50%;
-		border: 1px solid var(--c-primary);
+		border: 1px solid var(--c-primarygit);
 
 		background-color: var(--c-primary);
 

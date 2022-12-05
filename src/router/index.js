@@ -50,6 +50,8 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const { data, error } = await supabase.auth.getSession()
 
+  // console.log('Store: ', store)
+
   if (
     !data.session &&
     to.name !== 'login' &&

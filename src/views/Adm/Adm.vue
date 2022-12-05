@@ -509,6 +509,7 @@
 	import Input from '../../components/Input.vue'
 	import Button from '../../components/Button.vue'
 
+	import { useLoginStore } from '@/stores/Login'
 	import { supabase } from '../../supabase'
 
 	export default {
@@ -516,6 +517,11 @@
 		components: {
 			Input,
 			Button
+		},
+		setup() {
+			const store = useLoginStore()
+
+			return { store }
 		},
 		data() {
 			return {
@@ -560,6 +566,7 @@
 				}
 
 				this.open = false
+				this.store.login
 			},
 			async getSalgados() {
 			  try {
@@ -722,6 +729,10 @@
 			}
 		},
 		mounted() {
+			if (this.store.logged) {
+				this.open = false
+			}
+
 			this.getSalgados()
 			this.getDoces()
 			this.getBebidas()
