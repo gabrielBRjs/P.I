@@ -14,7 +14,10 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue')
+      components: {
+        default: () => import('../views/Login.vue'),
+        back: () => import('../components/Back.vue')
+      }
     },
     {
       path: '/conta',
@@ -27,7 +30,19 @@ const router = createRouter({
     {
       path: '/adm',
       name: 'adm',
-      component: () => import('../views/Adm.vue')
+      components: {
+        default: () => import('../views/Adm/Adm.vue'),
+        back: () => import('../components/Back.vue')
+      }
+    },
+    {
+      path: '/adm/pedidos',
+      name: 'pedidos',
+      components: {
+        default: () => import('../views/Adm/Pedidos.vue'),
+        back: () => import('../components/Back.vue')
+      }
+
     }
   ]
 })

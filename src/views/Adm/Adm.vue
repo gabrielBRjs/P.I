@@ -25,6 +25,14 @@
 
 		<h1>Administração</h1>
 
+		<Button
+		  type="button"
+		  label="Pedidos"
+		  :disabled="false"
+		  :sucess="false"
+		  @click="$router.push('/adm/pedidos')"
+		/>
+
 		<hr />
 
 		<div class="cardapio">
@@ -216,6 +224,68 @@
 				  @click="addShow('bebida')"
 				/>
 			</div>
+			<div class="marmitas-container container">
+				<h1>Marmitas</h1>
+
+				<table>
+				  <thead>
+				    <tr>
+				      <th>
+				        Nome
+				      </th>
+				      <th>
+				        Quantidade
+				      </th>
+				      <th>
+				        Valor R$
+				      </th>
+				      <th>
+				      	Ações
+				      </th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr
+				      v-for="marmita in marmitas"
+				      :key="marmita.id"
+				    >
+				      <td>
+				        {{ marmita.nome }}
+				      </td>
+				      <td>
+				        <input
+				        	type="number"
+				        	:value="marmita.quantidade"
+				        	@input="updateProduto(marmita.id, 'quantidade', $event.target.value)"
+				        />
+				      </td>
+				      <td>
+				        <input
+				        	type="number"
+				        	:value="marmita.valor"
+				        	@input="updateProduto(marmita.id, 'valor', $event.target.value)"
+				        />
+				      </td>
+				      <td>
+				      	<button
+				      		class="delete"
+				      		@click="deleteProduto(marmita.id)"
+				      	>
+				      		<font-awesome-icon icon="fa-solid fa-trash" />
+				      	</button>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+
+				<Button
+				  type="button"
+				  label="Adicionar"
+				  :disabled="false"
+				  :sucess="false"
+				  @click="addShow('marmita')"
+				/>
+			</div>
 
 			<div class="password-conatiner">
 			<form @submit="changeSenha">
@@ -384,14 +454,62 @@
 				/>
 			</div>
 		</dialog>
+
+		<dialog class="add-conatiner" v-show="show === 'marmita'">
+			<div class="form">
+				<h1>Marmita</h1>
+
+				<hr />
+
+				<Input
+				  type="text"
+				  label="Nome"
+				  placeholder="Marmita P"
+				  :msg="msgNome"
+				  v-model="nome"
+				/>
+
+				<Input
+				  type="number"
+				  label="Quantidade"
+				  placeholder="5"
+				  :msg="msgQuantidade"
+				  v-model="quantidade"
+				/>
+
+				<Input
+				  type="text"
+				  label="Valor"
+				  placeholder="7.5"
+				  :msg="msgValor"
+				  v-model="valor"
+				/>
+
+				<Button
+				  type="button"
+				  label="Adicionar"
+				  :disabled="false"
+				  :sucess="false"
+				  @click="add('marmita')"
+				/>
+
+				<Button
+				  type="button"
+				  label="Cancelar"
+				  :disabled="false"
+				  :sucess="false"
+				  @click="addClose"
+				/>
+			</div>
+		</dialog>
 	</main>
 </template>
 
 <script>
-	import Input from '../components/Input.vue'
-	import Button from '../components/Button.vue'
+	import Input from '../../components/Input.vue'
+	import Button from '../../components/Button.vue'
 
-	import { supabase } from '../supabase'
+	import { supabase } from '../../supabase'
 
 	export default {
 		name: 'Adm',
@@ -408,6 +526,7 @@
 				salgados: null,
 				doces: null,
 				bebidas: null,
+				marmitas: null,
 				nome: null,
 				msgNome: null,
 				quantidade: null,
@@ -478,21 +597,20 @@
 			    console.log(error)
 			  }
 			},
+			async getMarmitas() {
+			  try {
+			    const { data, error } = await supabase
+			      .from('cardapio')
+			      .select()
+			      .eq('tipo', 'marmita')
+
+			    this.marmitas = data
+			  } catch (error) {
+			    console.log(error)
+			  }
+			},
 			async addShow(name) {
-				if (name === 'salgado') {
-					this.show = 'salgado'
-					return
-				}
-
-				if (name === 'doce') {
-					this.show = 'doce'
-					return
-				}
-
-				if (name === 'bebida') {
-					this.show = 'bebida'
-					return
-				}
+				this.show = name
 			},
 			async addClose() {
 				this.show = null
@@ -501,14 +619,11 @@
 				this.valor = null
 			},
 			async updateProduto(id, type, valor) {
-
 				if (type === 'quantidade') {
 					const { error } = await supabase
 					  .from('cardapio')
 					  .update({ quantidade: valor })
 					  .eq('id', `${id}`)
-
-					console.log('Error: ', error)
 
 					if (error) window.alert('Não foi possível atualizar a quantidade')
 					return
@@ -529,6 +644,7 @@
 				this.getSalgados()
 				this.getDoces()
 				this.getBebidas()
+				this.getMarmitas()
 			},
 			async deleteProduto(id) {
 				const { error } = await supabase
@@ -582,6 +698,7 @@
 				this.getSalgados()
 				this.getDoces()
 				this.getBebidas()
+				this.getMarmitas()
 				this.addClose()
 			},
 			async changeSenha(e) {
@@ -608,6 +725,7 @@
 			this.getSalgados()
 			this.getDoces()
 			this.getBebidas()
+			this.getMarmitas()
 		}
 	}
 </script>

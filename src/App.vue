@@ -5,6 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <RouterView name="Navbar" />
   <RouterView />
+  <RouterView name="back" />
 </template>
 
 <style scoped>

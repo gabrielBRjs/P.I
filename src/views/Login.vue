@@ -138,7 +138,7 @@
 
         if (error) throw error
 
-        this.$router.push('/cardapio')
+        this.$router.push('/conta')
       },
       async register(e) {
         e.preventDefault()
