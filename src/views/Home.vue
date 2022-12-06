@@ -263,6 +263,8 @@
   .category-btn {
     background: transparent;
 
+    color: var(--c-text);
+
     border: none;
     border-bottom: 1px solid transparent;
 

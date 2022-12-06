@@ -815,6 +815,8 @@
 	table input {
 		background: var(--bg-color-s);
 
+		color: var(--c-text);
+
 		font-size: 1.2em;
 
 		padding: 5px;
